@@ -1,19 +1,25 @@
 package org.example;
 
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
-@ToString
 public class Circle implements Shape {
     private final double radius;
 
     public Circle(int radius) {
         this.radius = radius;
+        if (radius <= 0) {
+            throw new FigureInvalidException("Circle's radius should be bigger than zero", new IllegalArgumentException());
+        }
     }
 
     @Override
-    public int square() {
-        return (int) Math.floor(Math.PI * radius * radius);
+    public double square() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public String toString() {
+        return "Circle with radius " + radius;
     }
 }
