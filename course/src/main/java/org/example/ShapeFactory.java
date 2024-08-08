@@ -2,23 +2,28 @@ package org.example;
 
 import java.util.Random;
 
+/**
+ * ShapeFactory creates different Shape objects with random values
+ */
+
 public class ShapeFactory {
     private static final Random rand = new Random();
-    private static final int bound = 10;
+    private static final int lowerBound = 1;
+    private static final int upperBound = 10;
 
-    Rectangle createRectangle() {
-        return new Rectangle(rand.nextInt(1, bound), rand.nextInt(1, bound));
+    public Rectangle createRectangle() {
+        return new Rectangle(rand.nextInt(lowerBound, upperBound), rand.nextInt(lowerBound, upperBound));
     }
 
-    Square createSquare() {
-        return new Square(rand.nextInt(1, bound));
+    public Square createSquare() {
+        return new Square(rand.nextInt(lowerBound, upperBound));
     }
 
-    Triangle createTriangle() {
-        return new Triangle(rand.nextInt(1, bound), rand.nextInt(1, bound));
+    public Triangle createTriangle() {
+        return new Triangle(rand.nextInt(lowerBound, upperBound), rand.nextInt(lowerBound, upperBound));
     }
 
-    Circle createCircle() {
-        return new Circle(rand.nextInt(1, bound));
+    public Circle createCircle() {
+        return new Circle(rand.nextInt(lowerBound, upperBound));
     }
 }
