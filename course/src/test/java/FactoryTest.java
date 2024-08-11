@@ -36,8 +36,8 @@ public class FactoryTest {
     @Test
     public void CreateTriangle_ValidValues_ValuesInBounds() {
         Triangle newTriangle = shapeFactory.createTriangle();
-        assertThat(newTriangle.getSide_a()).isBetween(lowerBound, upperBound);
-        assertThat(newTriangle.getSide_b()).isBetween(lowerBound, upperBound);
+        assertThat(newTriangle.getSideA()).isBetween(lowerBound, upperBound);
+        assertThat(newTriangle.getSideB()).isBetween(lowerBound, upperBound);
     }
 
     @Test
