@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Creator class is used to generate a fixed amount of random Shape objects
+ */
+
 public class Creator {
     ShapeFactory shapeFactory = new ShapeFactory();
     public List<Shape> create(int amount) {
@@ -11,7 +15,7 @@ public class Creator {
         int randomNum;
         Shape newShape;
         List<Shape> myList = new ArrayList<Shape>(amount);
-        while (amount >= 0) {
+        while (amount > 0) {
             randomNum = myRand.nextInt(1, 4);
             if (randomNum == 1) {
                 newShape = shapeFactory.createRectangle();
