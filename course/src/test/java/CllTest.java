@@ -1,4 +1,3 @@
-import org.assertj.core.data.Index;
 import org.example.CircularLinkedList;
 import org.example.CircularLinkedListIterator;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +30,7 @@ public class CllTest {
         cll.addFirst(2);
         cll.addFirst(1);
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 4) {
             int currVal = listIterator.next();
             assertThat(currVal).isEqualTo(count++);
         }
@@ -45,7 +44,7 @@ public class CllTest {
         cll.addLast(2);
         cll.addLast(3);
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 4) {
             int currVal = listIterator.next();
             System.out.println("val = " + currVal);
             assertThat(currVal).isEqualTo(count++);
@@ -60,7 +59,7 @@ public class CllTest {
         cll.add(0, 2);
         cll.add(0, 1);
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 4) {
             int currVal = listIterator.next();
             System.out.println("val = " + currVal);
             assertThat(currVal).isEqualTo(count++);
@@ -76,7 +75,7 @@ public class CllTest {
         cll.add(2, 4);
         cll.add(2, 3);
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 5) {
             int currVal = listIterator.next();
             System.out.println("val = " + currVal);
             assertThat(currVal).isEqualTo(count++);
@@ -91,7 +90,7 @@ public class CllTest {
         cll.add(1, 2);
         cll.add(2, 3);
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 4) {
             int currVal = listIterator.next();
             System.out.println("val = " + currVal);
             assertThat(currVal).isEqualTo(count++);
@@ -114,7 +113,7 @@ public class CllTest {
         // remove 1 - > final list should be 2 3 4
         cll.removeFirst();
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 5) {
             int currVal = listIterator.next();
             System.out.println("val = " + currVal);
             assertThat(currVal).isEqualTo(count++);
@@ -132,7 +131,7 @@ public class CllTest {
         // remove 4 - > final list should be 1 2 3
         cll.removeLast();
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 4) {
             int currVal = listIterator.next();
             System.out.println("val = " + currVal);
             assertThat(currVal).isEqualTo(count++);
@@ -150,7 +149,7 @@ public class CllTest {
         // remove 1 - > final list should be 2 3 4
         cll.remove(0);
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 5) {
             int currVal = listIterator.next();
             System.out.println("val = " + currVal);
             assertThat(currVal).isEqualTo(count++);
@@ -168,7 +167,7 @@ public class CllTest {
         // remove 4 - > final list should be 1 2 3
         cll.remove(3);
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 4) {
             int currVal = listIterator.next();
             System.out.println("val = " + currVal);
             assertThat(currVal).isEqualTo(count++);
@@ -186,7 +185,7 @@ public class CllTest {
         // remove 5 -> final list should be 1 2 3
         cll.remove(2);
         CircularLinkedListIterator<Integer> listIterator = cll.iterator();
-        while (listIterator.hasNext()) {
+        while (listIterator.hasNext() && count != 4) {
             int currVal = listIterator.next();
             System.out.println("val = " + currVal);
             assertThat(currVal).isEqualTo(count++);
@@ -194,21 +193,12 @@ public class CllTest {
     }
 
     @Test
-    public void remove_removeValueWithInvalidIndex_ExceptionThrown() {
+    public void get_testCircularity_ValueIsRetrieved() {
         cll.add(0, 1);
         cll.add(1, 2);
         cll.add(2, 3);
-        // maximum index in the list is 2 -> throw exception
-        assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> cll.remove(4));
-    }
+        //
 
-    @Test
-    public void add_addValueWithInvalidIndex_ExceptionThrown() {
-        cll.add(0, 1);
-        cll.add(1, 2);
-        cll.add(2, 3);
-
-        // maximum index in the list is 2 -> throw exception
-        assertThatExceptionOfType(IndexOutOfBoundsException.class).isThrownBy(() -> cll.add(4, 4));
+        assertThat(cll.get(11)).isEqualTo(3);
     }
 }

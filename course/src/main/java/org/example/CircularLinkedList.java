@@ -2,16 +2,13 @@ package org.example;
 
 public class CircularLinkedList<E> {
     private Node<E> start;
-    private int size;
 
     public CircularLinkedList() {
         start = null;
-        size = 0;
     }
 
     public E get(int index) {
         isEmpty();
-        isIndexCorrect(index);
         int currIndex = 0;
         Node<E> currNode = start;
         while (currIndex != index) {
@@ -22,7 +19,6 @@ public class CircularLinkedList<E> {
     }
 
     public void add(int index, E e) {
-        isIndexCorrect(index);
         Node<E> newNode = new Node<>(e);
         if (start == null) {
             start = newNode;
@@ -45,7 +41,6 @@ public class CircularLinkedList<E> {
                 start = newNode;
             }
         }
-        size++;
     }
 
     public void addFirst(E e) {
@@ -63,7 +58,6 @@ public class CircularLinkedList<E> {
             start.setPrev(newNode);
             start = newNode;
         }
-        size++;
     }
 
     public void addLast(E e) {
@@ -80,12 +74,10 @@ public class CircularLinkedList<E> {
             last.setNext(newNode);
             start.setPrev(newNode);
         }
-        size++;
     }
 
     public void remove(int index) {
         isEmpty();
-        isIndexCorrect(index);
         int currIndex = 0;
         Node<E> currNode = start;
         while (currIndex != index) {
@@ -99,7 +91,6 @@ public class CircularLinkedList<E> {
         if (currIndex == 0) {
             start = nextNode;
         }
-        size--;
     }
 
     public void removeFirst() {
@@ -109,7 +100,6 @@ public class CircularLinkedList<E> {
         last.setNext(newStart);
         newStart.setPrev(last);
         start = newStart;
-        size--;
     }
 
     public void removeLast() {
@@ -118,22 +108,15 @@ public class CircularLinkedList<E> {
         Node<E> newEnd = last.getPrev();
         newEnd.setNext(start);
         start.setPrev(newEnd);
-        size--;
     }
 
     public CircularLinkedListIterator<E> iterator() {
-        return new CircularLinkedListIterator<>(start, size);
+        return new CircularLinkedListIterator<>(start);
     }
 
     public void isEmpty() {
         if (start == null) {
             throw new IllegalArgumentException("List is empty!");
-        }
-    }
-
-    public void isIndexCorrect(int index) {
-        if (index > size || index < 0) {
-            throw new IndexOutOfBoundsException("Provided index is not possible");
         }
     }
 }
