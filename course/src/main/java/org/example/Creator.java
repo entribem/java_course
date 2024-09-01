@@ -1,8 +1,7 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+
+import static java.lang.Math.ceil;
 
 /**
  * Creator class is used to generate a fixed amount of random Shape objects
@@ -10,28 +9,26 @@ import java.util.Random;
 
 public class Creator {
     ShapeFactory shapeFactory = new ShapeFactory();
-    public List<Shape> create(int amount) {
-        Random myRand = new Random();
-        int randomNum;
+    public CircularLinkedList<Shape> create(int shapeAmount) {
+        int shapeTypeAmount = 4;
+        int iterationsAmount = (int) Math.ceil((double) shapeAmount / shapeTypeAmount);
         Shape newShape;
-        List<Shape> myList = new ArrayList<Shape>(amount);
-        while (amount > 0) {
-            randomNum = myRand.nextInt(1, 4);
-            if (randomNum == 1) {
-                newShape = shapeFactory.createRectangle();
+        CircularLinkedList<Shape> shapeList = new CircularLinkedList<>();
+        while (iterationsAmount > 0) {
+            for (int i = 1; i <= shapeTypeAmount; ++i) {
+                newShape = switch (i) {
+                    case 1 -> shapeFactory.createCircle();
+                    case 2 -> shapeFactory.createSquare();
+                    case 3 -> shapeFactory.createRectangle();
+                    default -> shapeFactory.createTriangle();
+                };
+                shapeList.addLast(newShape);
+                if (shapeAmount-- < 0) {
+                    break;
+                }
             }
-            else if (randomNum == 2) {
-                newShape = shapeFactory.createSquare();
-            }
-            else if (randomNum == 3) {
-                newShape = shapeFactory.createCircle();
-            }
-            else {
-                newShape = shapeFactory.createTriangle();
-            }
-            myList.add(newShape);
-            amount--;
+            iterationsAmount--;
         }
-        return myList;
+        return shapeList;
     }
 }

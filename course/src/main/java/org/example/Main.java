@@ -7,7 +7,7 @@ public class Main {
         Rectangle rectangle = new Rectangle(4, 20);
         System.out.println("Hello world!");
         Creator creator = new Creator();
-        List<Shape> shapes = creator.create(10);
+        CircularLinkedList<Shape> shapes = creator.create(10);
         System.out.println(shapes);
     }
 }

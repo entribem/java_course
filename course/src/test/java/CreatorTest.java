@@ -1,5 +1,4 @@
-import org.example.Creator;
-import org.example.Shape;
+import org.example.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +8,6 @@ import static org.assertj.core.api.Assertions.*;
 
 public class CreatorTest {
     private static Creator creator;
-    private static final int amount = 10;
 
     @BeforeAll
     public static void init() {
@@ -17,14 +15,27 @@ public class CreatorTest {
     }
 
     @Test
-    public void Create_CreateRandomShapes_AllShapesAreCreated() {
-        List<Shape> shapeList = creator.create(amount);
-        assertThat(shapeList).hasSize(amount);
+    public void Create_CreateShapes_ShapesAreCreatedInCorrectOrder() {
+        int shapeAmount = 9;
+        int count = 1;
+        Class<? extends Shape> expectedShapeType;
+        CircularLinkedList<Shape> shapeList = creator.create(shapeAmount);
+        CircularLinkedListIterator<Shape> shapeListIterator = shapeList.iterator();
+        while (shapeListIterator.hasNext() && shapeAmount > 0) {
+            Shape nextShape = shapeListIterator.next();
+            expectedShapeType = switch (count) {
+                case 1 -> Circle.class;
+                case 2 -> Square.class;
+                case 3 -> Rectangle.class;
+                default -> Triangle.class;
+            };
+            assertThat(nextShape.getClass()).isEqualTo(expectedShapeType);
+            System.out.println(nextShape);
+            shapeAmount--;
+            if (count++ == 4) {
+                count = 1;
+            }
+        }
     }
 
-    @Test
-    public void Create_CreateRandomShapes_OnlyShapesAreCreated() {
-        List<Shape> shapeList = creator.create(amount);
-        assertThat(shapeList).hasOnlyElementsOfType(Shape.class);
-    }
 }
